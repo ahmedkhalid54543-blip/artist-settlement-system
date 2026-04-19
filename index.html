@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STARSETTLE - 아티스트 정산 관리 시스템</title>
+  <meta name="description" content="K-Pop 아티스트 정산 및 활동 관리 시스템">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-icon">⭐</div>
+          <div class="brand-text">
+            <h1>STARSETTLE</h1>
+            <span>스타세틀</span>
+          </div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item active" data-page="dashboard">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">대시보드</span>
+          <span class="nav-label-en">Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-page="artists">
+          <span class="nav-icon">🎤</span>
+          <span class="nav-label">아티스트</span>
+          <span class="nav-label-en">Artists</span>
+        </a>
+        <a href="#" class="nav-item" data-page="activities">
+          <span class="nav-icon">🎬</span>
+          <span class="nav-label">활동</span>
+          <span class="nav-label-en">Activities</span>
+        </a>
+        <a href="#" class="nav-item" data-page="settlements">
+          <span class="nav-icon">💰</span>
+          <span class="nav-label">정산</span>
+          <span class="nav-label-en">Settlements</span>
+        </a>
+        <a href="#" class="nav-item" data-page="reports">
+          <span class="nav-icon">📈</span>
+          <span class="nav-label">리포트</span>
+          <span class="nav-label-en">Reports</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">👔</div>
+          <div class="user-details">
+            <h4>김매니저</h4>
+            <p>YG Entertainment</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <h2 id="page-title">대시보드</h2>
+          <p id="page-subtitle">아티스트 정산 현황 개요</p>
+        </div>
+        <div class="header-right">
+          <div class="search-box">
+            <input type="text" placeholder="아티스트, 활동 검색..." id="search-input">
+          </div>
+          <div class="header-actions">
+            <button class="btn-icon">🔔</button>
+            <button class="btn-icon">⚙️</button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="content-area">
+        <!-- Dashboard Page -->
+        <div class="page active" id="dashboard-page">
+          <div class="stats-grid" id="stats-grid"></div>
+          
+          <div class="section">
+            <div class="section-header">
+              <h3>📈 월간 매출 추이</h3>
+              <div class="section-actions">
+                <button class="btn btn-secondary btn-sm">📅 2025년</button>
+              </div>
+            </div>
+            <div class="chart-container">
+              <div class="chart-placeholder">
+                <div style="font-size:48px;margin-bottom:16px">📊</div>
+                <p>매출 추이 차트 영역</p>
+                <p style="font-size:12px;margin-top:8px">실제 구현 시 Chart.js 또는 D3.js 연동</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <h3>🎤 아티스트별 실적</h3>
+              <button class="btn btn-primary btn-sm" onclick="showPage('artists')">전첳 보기</button>
+            </div>
+            <div class="table-container">
+              <table class="data-table" id="dashboard-artists-table">
+                <thead>
+                  <tr>
+                    <th>아티스트</th>
+                    <th>그룹</th>
+                    <th>활동 수</th>
+                    <th>월간 매출</th>
+                    <th>분배율</th>
+                    <th>상태</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <h3>⏳ 최근 정산 내역</h3>
+              <button class="btn btn-primary btn-sm" onclick="showPage('settlements')">전첳 보기</button>
+            </div>
+            <div class="table-container">
+              <table class="data-table" id="dashboard-settlements-table">
+                <thead>
+                  <tr>
+                    <th>아티스트</th>
+                    <th>정산월</th>
+                    <th>총 매출</th>
+                    <th>아티스트 분</th>
+                    <th>세금</th>
+                    <th>실지급액</th>
+                    <th>상태</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Artists Page -->
+        <div class="page" id="artists-page">
+          <div class="section">
+            <div class="section-header">
+              <h3>🎤 소속 아티스트</h3>
+              <div class="section-actions">
+                <button class="btn btn-primary btn-sm">+ 아티스트 등록</button>
+              </div>
+            </div>
+            <div class="cards-grid" id="artists-grid"></div>
+          </div>
+        </div>
+
+        <!-- Activities Page -->
+        <div class="page" id="activities-page">
+          <div class="section">
+            <div class="section-header">
+              <h3>🎬 활동 목록</h3>
+              <div class="section-actions">
+                <button class="btn btn-primary btn-sm">+ 활동 등록</button>
+              </div>
+            </div>
+            <div class="tab-nav">
+              <button class="tab-btn active" data-tab="all">전체</button>
+              <button class="tab-btn" data-tab="completed">완료</button>
+              <button class="tab-btn" data-tab="scheduled">예정</button>
+            </div>
+            <div class="tab-content active" id="tab-all">
+              <div class="table-container">
+                <table class="data-table" id="activities-table">
+                  <thead>
+                    <tr>
+                      <th>활동</th>
+                      <th>아티스트</th>
+                      <th>유형</th>
+                      <th>일자</th>
+                      <th>수익</th>
+                      <th>비용</th>
+                      <th>순이익</th>
+                      <th>상태</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settlements Page -->
+        <div class="page" id="settlements-page">
+          <div class="section">
+            <div class="section-header">
+              <h3>💰 정산 관리</h3>
+              <div class="section-actions">
+                <button class="btn btn-primary btn-sm">+ 정산 생성</button>
+              </div>
+            </div>
+            <div id="settlements-list"></div>
+          </div>
+        </div>
+
+        <!-- Reports Page -->
+        <div class="page" id="reports-page">
+          <div class="section">
+            <div class="section-header">
+              <h3>📈 리포트</h3>
+            </div>
+            <div class="chart-container">
+              <div class="chart-placeholder">
+                <div style="font-size:48px;margin-bottom:16px">📊</div>
+                <p>리포트 및 분석 차트 영역</p>
+                <p style="font-size:12px;margin-top:8px">실제 구현 시 상세 분석 리포트 제공</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">상세 정보</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal()">닫기</button>
+        <button class="btn btn-primary">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/siteConfig.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
